@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-md-5 col-md-offset-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Solar Heater Allocator</div>
+            <div class="panel-body"> 
+                <form [formGroup]="allocateForm" (ngSubmit)="register()">
+                    <div class="form-group">
+                        <label for="distributorName">Distributor Name</label>
+                        <input formControlName="distributorName" id="distributorName" type="text" class="form-control">
+                        <span *ngIf="!dn.valid && dn.touched" id="distributorNameError" class="text-danger">Required Field</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="purchaseDate">Purchase date</label>
+                        <input formControlName="purchaseDate" id="purchaseDate" type="date" class="form-control">
+            
+                    </div>
+                    <div class="form-group">
+                        <label for="installationDate">Install Date</label>
+                        <input formControlName="installationDate" id="installationDate" type="date" class="form-control">
+            
+                    </div>
+                    <div class="form-group">
+                        <label for="customerId">Customer Id</label>
+                        <input formControlName="customerId" id="customerId" type="number" class="form-control">
+                        <span *ngIf="!cid.valid && cid.touched" id="customerIdError" class="text-danger">Required Field</span>
+                    </div>
+                    <button [disabled]="!allocateForm.valid" type="submit" class="btn btn-primary">Register</button>
+                </form>
+                <span class="text-danger">{{errorMessage}}</span>
+                <span class="text-success">{{successMessage}}</span>
+            </div>
+        </div>
+    </div>
+</div>
