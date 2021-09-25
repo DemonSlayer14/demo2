@@ -1,0 +1,86 @@
+Q1
+db.weatherlog.find({
+    $or:[
+        {temp:{$gt:130}},
+        {temp:{$lt:-50}}
+    ]
+}).length();
+
+
+Q2
+db.weatherlog.find(
+    {skyCondn:{$all:['mist','hail']}},
+    {aircraftID:1,_id:0}
+)
+
+
+Q3
+db.weatherlog.updateMany(
+    { $and:[
+        {windDirDegree:{$gt:250}},
+        {windSpeed_mph:{$gt:7}}
+    ]},
+    { $set:{turbCondn:"light"}}
+)
+
+
+Q4
+db.weatherlog.aggregate([
+    {$group:{
+        _id:"$turbCondn",
+        "AvgWindSpeed":{$avg:"$windSpeed_mph"}
+    }}
+])
+
+
+Q5
+db.weatherlog.aggregate([
+    {$match:{skyCondn:"mist"}},
+    {$group:{
+        _id:"$aircraftID",
+        "TotalCount":{$sum:1}
+    }}
+])
+
+
+Q6
+db.weatherlog.updateMany(
+    {$and:[
+        {"geo.latitude":{$gt:25}},
+        {"geo.alt":{$gt:890}}
+    ]},
+    {$set:{elevation:25}}
+)
+
+
+Q7
+db.component.find(
+    {"service.status":"pending"}
+).length()
+
+
+Q8
+db.component.updateMany(
+    {"stockInv.qtyReqd":{$gt:5}},
+    {$inc:{"stockInv.instock":10}}
+)
+
+Q9
+db.component.aggregate([
+    {$sort:{flyingHRS:-1}},
+    {$project:{
+        _id:1,
+        componentName:1,
+        flyingHRS:1
+    }},
+    {$limit:3}
+])
+
+Q10
+db.component.deleteMany(
+    {componentName:{$regex:/^slat/i}}
+)
+
+db.flight.deleteMany(
+    {address:{$regex:/Bellenden/}}
+)

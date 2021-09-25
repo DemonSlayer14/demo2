@@ -1,0 +1,26 @@
+<div class="container pt-5 my-3">
+  <div class="mx-auto my-3 col-sm-6 card text-center text-light" style="background-color: black; border-radius: 1rem;">
+    <div class="card-body">
+      <img style="width: 15%;height: auto;" src="../../assets/Images/Life Coach LogIn.jpg" alt="coach-pic"
+        class="card-img-top d-inline">
+      <h1 class="font-weight-bold display-5 d-inline ml-3 text-light">Login As Life Coach</h1>
+      <form [formGroup]="coachLoginForm" (ngSubmit)="coachlogin(coachLoginForm)">
+        <div class="form-group mt-5 mb-4">
+          <input [formControl]="id" type="text" placeholder="Coach Id" class="form-control">
+          <small *ngIf="id.touched && !id.valid" class="form-text text-danger font-weight-bold text-left">Coach Id is
+            manditory field</small>
+        </div>
+        <div class="form-group mb-5">
+          <input [formControl]="password" type="password" placeholder="Password" class="form-control">
+          <small *ngIf="password.touched && !password.valid"
+            class="form-text text-danger font-weight-bold text-left">Password should have 5 to 10
+            characters</small>
+        </div>
+        <button [disabled]="!coachLoginForm.valid"
+          class="btn-primary font-weight-bold btn-block btn-lg my-3">Login</button>
+        <small *ngIf="!isValid" class="form-text text-danger font-weight-bold text-left my-2">Incorrect Coach Id or
+          Password</small>
+      </form>
+    </div>
+  </div>
+</div>
