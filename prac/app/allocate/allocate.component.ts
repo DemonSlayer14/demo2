@@ -10,43 +10,44 @@ import { AllocateServiceService } from './allocate-service.service';
   styleUrls: ['./allocate.component.css']
 })
 export class AllocateComponent implements OnInit {
-  allocateForm: FormGroup=new FormGroup({
-    distributorName: new FormControl("",[Validators.required]),
-    purchaseDate: new FormControl("",[Validators.required]),
-    installationDate: new FormControl("",[Validators.required]),
-    customerId: new FormControl("",[Validators.required])
+  allocateForm: FormGroup = new FormGroup({
+    distributorName: new FormControl("", [Validators.required]),
+    purchaseDate: new FormControl("", [Validators.required]),
+    installationDate: new FormControl("", [Validators.required]),
+    customerId: new FormControl("", [Validators.required])
   });
-  get dn(){
+  get dn() {
     return this.allocateForm.get('distributorName');
   }
-  get cid(){
+  get cid() {
     return this.allocateForm.get('customerId');
   }
-  errorMessage: string;
- successMessage: string; 
+  errorMessage: string;
+  successMessage: string;
 
-  constructor(private as:AllocateServiceService) { }
+  constructor(private as: AllocateServiceService) { }
 
-  
+
 
   ngOnInit() {
   }
 
   register() {
-    this.successMessage="";
-    this.errorMessage="";
-    let data:SolarHeater={
-      distributorName : this.allocateForm.controls.distributorName.value,
-      purchaseDate : new Date(this.allocateForm.controls.purchaseDate.value),
-      installationDate : new Date(this.allocateForm.controls.installationDate.value),
-      customerId : parseInt(this.allocateForm.controls.customerId.value)
-    }
+    this.successMessage = "";
+    this.errorMessage = "";
+    let data: SolarHeater = this.allocateForm.value;
+    // {
+    //   distributorName : this.allocateForm.controls.distributorName.value,
+    //   purchaseDate : new Date(this.allocateForm.controls.purchaseDate.value),
+    //   installationDate : new Date(this.allocateForm.controls.installationDate.value),
+    //   customerId : parseInt(this.allocateForm.controls.customerId.value)
+    // }
     this.as.getData(data)
-      .subscribe((res)=>{
-        this.successMessage=res.message;
+      .subscribe((res) => {
+        this.successMessage = res.message;
         console.log(res);
-      },(err)=>{
-        this.errorMessage=err.error.message;
+      }, (err) => {
+        this.errorMessage = err.error.message;
         console.log(err);
       })
   }
